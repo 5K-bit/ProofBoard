@@ -1,0 +1,44 @@
+[board]
+title = "Orchard Sync"
+subject = "orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard)"
+default_max_age_days = 30
+
+[[claim]]
+id = "tests-pass"
+title = "The test suite passes with strong coverage"
+statement = "Every test in the recorded run passed, and line coverage is at least 90%."
+
+  [[claim.evidence]]
+  path = "evidence/junit.xml"
+  junit_clean = true
+
+  [[claim.evidence]]
+  path = "evidence/coverage.xml"
+  coverage_min = 90
+
+[[claim]]
+id = "restore-drill"
+title = "A backup can be restored"
+statement = "The last restore drill rebuilt the data and every checksum matched."
+
+  [[claim.evidence]]
+  path = "evidence/restore-drill.txt"
+  contains = ["drill: ok", "checksums matched: 214 of 214"]
+  not_contains = "mismatch"
+
+[[claim]]
+id = "no-runtime-deps"
+title = "No runtime dependencies"
+statement = "The package installs nothing besides itself."
+
+  [[claim.evidence]]
+  path = "evidence/pyproject-excerpt.toml"
+  matches = '^dependencies = \[\]$'
+
+[[claim]]
+id = "threat-model-reviewed"
+title = "The threat model was reviewed this quarter"
+
+  [[claim.evidence]]
+  path = "docs/threat-model-review.md"
+  contains = "Reviewed by"

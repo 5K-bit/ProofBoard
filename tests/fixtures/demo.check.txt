@@ -1,0 +1,7 @@
+ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
+checked 2026-10-29T17:00:00Z
+  proven      tests-pass             The test suite passes with strong coverage
+  proven      restore-drill          A backup can be restored
+  proven      no-runtime-deps        No runtime dependencies
+  proven      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 4 proven

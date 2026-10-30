@@ -1,0 +1,5 @@
+restore drill 2026-10-27 (synthetic data)
+snapshot: 2026-10-27T02:00:00Z
+restored 214 files into an empty folder
+checksums matched: 214 of 214
+drill: ok
