@@ -1,5 +1,5 @@
 {
-  "digest": "26ae3cce00eb32a02b67a7d0b694b62a7611730dbdaaf9f55e4caaac4da49d24",
+  "digest": "6352abe8cb737747571145bf787f3918b750a2af5d0f9a6fe062be2bcacb6a67",
   "entries": {
     "SECURITY.md": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -12,8 +12,8 @@
       "size": 6346
     },
     "docs/evidence/test-run.txt": {
-      "sealed_at": "2026-10-30T03:45:00Z",
-      "sha256": "d14b1c4740d5bbb3de8950a2565e594396b289349f2a68cbf7b23f7376b25c9a",
+      "sealed_at": "2026-10-30T04:23:29Z",
+      "sha256": "74e4c12cd94bfc1f68eacd5fcfd539adb018a6c5fae549115f8d581045905378",
       "size": 1285
     },
     "docs/threat-model.md": {
@@ -27,9 +27,9 @@
       "size": 1684
     },
     "tests/unit/test_model_checks.py": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "27d15d325ae8415297fddd91b1ed888217a31fb5474e95b31f333ccadc0c1303",
-      "size": 6742
+      "sealed_at": "2026-10-30T04:23:29Z",
+      "sha256": "e69a0e53e1e8218ee957684052d680afb50d36ee832cf920816c14c774ac6724",
+      "size": 6809
     },
     "tests/unit/test_render_fuzz.py": {
       "sealed_at": "2026-10-30T03:44:53Z",
