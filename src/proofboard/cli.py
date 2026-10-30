@@ -1,4 +1,4 @@
-"""Command line: init, seal, check, board."""
+"""Command line: init, seal, check, board, casestudy, scaffold."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import os
 import sys
 from pathlib import Path
 
-from . import __version__, render
+from . import __version__, casestudy, render
 from .errors import ProofBoardError
 from .evaluate import evaluate
 from .ledger import LOCK_NAME, load_lock, now_utc, parse_time, write_lock
@@ -70,6 +70,24 @@ def _parser() -> argparse.ArgumentParser:
     board.add_argument("--format", choices=["md", "html", "json"], default="md")
     board.add_argument("--out", help="write to this file instead of the screen")
     board.add_argument("--strict", action="store_true", help="exit 2 if any claim is not proven")
+
+    story = sub.add_parser(
+        "casestudy", help="render the case study: every sentence next to its evidence status"
+    )
+    common(story)
+    story.add_argument("--format", choices=["md", "html"], default="md")
+    story.add_argument("--out", help="write to this file instead of the screen")
+    story.add_argument(
+        "--strict", action="store_true", help="exit 2 unless every statement is proven"
+    )
+    story.add_argument("--allow-missing", action="store_true", help="allow an empty section")
+
+    scaffold = sub.add_parser(
+        "scaffold", help="draft a case study from the ADRs, test logs, screenshots and README"
+    )
+    scaffold.add_argument("-C", "--root", default=".")
+    scaffold.add_argument("--out", help="draft file (default: ROOT/casestudy.draft.toml)")
+    scaffold.add_argument("--force", action="store_true", help="overwrite an existing draft")
     return parser
 
 
@@ -145,9 +163,44 @@ def _board(args: argparse.Namespace) -> int:
     return 2 if args.strict and not report.all_proven else 0
 
 
+def _casestudy(args: argparse.Namespace) -> int:
+    root, _, _ = _paths(args)
+    report = _report(args)
+    if args.format == "html":
+        body = casestudy.html_page(report, root, allow_missing=args.allow_missing)
+    else:
+        body = casestudy.markdown(report, allow_missing=args.allow_missing)
+    if args.out:
+        _write_text(Path(args.out), body)
+        print(f"wrote {args.out}")
+    else:
+        sys.stdout.write(body)
+    return 2 if args.strict and not casestudy.all_story_proven(report) else 0
+
+
+def _scaffold(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    if not root.is_dir():
+        raise ProofBoardError(f"not a folder: {root}")
+    target = Path(args.out) if args.out else root / "casestudy.draft.toml"
+    if target.exists() and not args.force:
+        raise ProofBoardError(f"{target} already exists (use --force to overwrite)")
+    _write_text(target, casestudy.draft(root))
+    print(f"wrote {target}")
+    print("Replace each TODO with a sentence you can stand behind, then merge it into the claims.")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    handlers = {"init": _init, "seal": _seal, "check": _check, "board": _board}
+    handlers = {
+        "init": _init,
+        "seal": _seal,
+        "check": _check,
+        "board": _board,
+        "casestudy": _casestudy,
+        "scaffold": _scaffold,
+    }
     try:
         return handlers[args.command](args)
     except ProofBoardError as exc:

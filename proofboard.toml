@@ -61,3 +61,104 @@ statement = "The threat model and security policy state that ProofBoard detects 
   [[claim.evidence]]
   path = "SECURITY.md"
   contains = "It detects change, not dishonesty."
+
+# ---------------------------------------------------------------------------------------------
+# This repository's own case study: `proofboard casestudy --format html --out docs/evidence/casestudy.html`
+# Every sentence below cites a file in this repository and is sealed and checked like a claim.
+
+[casestudy]
+title = "ProofBoard: claims tied to evidence you can re-check"
+subject = "proofboard 0.1.0"
+author = "Louis Boddie"
+summary = "A small command-line tool that links each claim about a project to the evidence files behind it, seals their SHA-256, and reports when that evidence changes, goes missing, fails a rule or goes stale."
+repo = "https://github.com/5K-bit/ProofBoard"
+
+[[story]]
+section = "problem"
+text = "The evidence behind a claim can be edited, deleted or left to age while the claim keeps being repeated, and nothing in a normal repository notices. The recorded demo walks one made-up project through exactly those three failures."
+  [[story.evidence]]
+  path = "docs/evidence/acceptance-transcript.txt"
+  contains = [
+    "== 4. Someone edits the restore drill after the fact ==",
+    "== 7. The review note is deleted ==",
+    "== 8. Evidence goes stale ==",
+  ]
+
+[[story]]
+section = "evidence"
+text = "In that recording all four claims read proven after sealing; after the restore drill is edited one reads drifted and a repeat seal is refused; after enough time all four read stale."
+  [[story.evidence]]
+  path = "docs/evidence/acceptance-transcript.txt"
+  contains = [
+    "4 claims: 4 proven",
+    "1 drifted, 3 proven",
+    "These sealed files have changed. Nothing was written.",
+    "4 claims: 4 stale",
+  ]
+
+[[story]]
+section = "decision"
+text = "Evidence is sealed by SHA-256 rather than by file time, because modification times change on every checkout and can be set by anyone."
+  [[story.evidence]]
+  path = "docs/adr/0001-seal-by-hash-not-by-timestamp.md"
+  contains = "modification times change on every checkout"
+
+[[story]]
+section = "decision"
+text = "Sealing refuses to overwrite a changed hash unless told the change is expected, so the seal command cannot be used to turn a red board green by accident."
+  [[story.evidence]]
+  path = "docs/adr/0002-seal-refuses-silent-changes.md"
+  contains = "--accept-changes"
+
+[[story]]
+section = "decision"
+text = "Rules are data, not code: a claims file cannot run a command, so editing it in a pull request is not the same as running code in CI."
+  [[story.evidence]]
+  path = "docs/adr/0003-rules-are-data-not-code.md"
+  contains = "equivalent to running code in CI"
+
+[[story]]
+section = "implementation"
+text = "A strict claims-file parser, a hash ledger with its own digest, a pure planner for sealing, and an evaluator that gives each claim the worst status among its evidence, with text, Markdown, HTML and JSON reports."
+  [[story.evidence]]
+  path = "docs/architecture.md"
+  contains = ["`ledger.py`", "`seal.py`", "`evaluate.py`"]
+
+[[story]]
+section = "verification"
+text = "The recorded run of the test suite passed with coverage above 90%."
+  [[story.evidence]]
+  path = "docs/evidence/test-run.txt"
+  matches = '\b\d+ passed\b'
+  coverage_min = 90
+
+[[story]]
+section = "verification"
+text = "Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities, markup in text, and mutated claims files."
+  [[story.evidence]]
+  path = "tests/unit/test_render_fuzz.py"
+  contains = ["test_hostile_text_is_inert", "test_fuzzed_claims_files_never_crash"]
+  [[story.evidence]]
+  path = "tests/unit/test_model_checks.py"
+  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+
+[[story]]
+section = "limits"
+text = "A seal proves a file is what it was when sealed, not that it was honest; a sealed false log reads as proven."
+  [[story.evidence]]
+  path = "README.md"
+  contains = "Unchanged is not true."
+
+[[story]]
+section = "limits"
+text = "The lock is tamper-evident, not signed: anyone who can rewrite both the lock and the evidence can make a board green."
+  [[story.evidence]]
+  path = "README.md"
+  contains = "tamper-evident, not signed"
+
+[[story]]
+section = "limits"
+text = "It has only been tried on made-up projects, and not yet by hand on Windows."
+  [[story.evidence]]
+  path = "README.md"
+  contains = ["Tested on made-up projects.", "Not yet verified on Windows by hand."]

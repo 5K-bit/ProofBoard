@@ -6,6 +6,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Case studies. A `[casestudy]` table and `[[story]]` tables describe a write-up in six fixed sections; every sentence must cite evidence and becomes a claim that `seal` and `check` already cover.
+- `proofboard casestudy` renders Markdown or one self-contained HTML page (screenshots embedded, text escaped) with each sentence's evidence status; `--strict` exits 2 unless all are proven.
+- `proofboard scaffold` drafts a case study from ADRs, test logs, screenshots and README limitations, leaving `TODO` where a human sentence is needed.
+- This repository's own case study.
+
 ## [0.1.0] - 2026-10-29
 
 First working version.

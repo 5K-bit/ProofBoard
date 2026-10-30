@@ -16,7 +16,8 @@ proofboard.lock.json ─► ledger ┘
 | `seal.py` | Plan a seal: new, changed, unchanged, refreshed and dropped evidence. Pure; the CLI decides whether to write. |
 | `evaluate.py` | Combine claims, files and lock into a status per evidence file and per claim. |
 | `render.py` | Text, Markdown, HTML and JSON. All text from the claims or evidence is escaped. |
-| `cli.py` | `init`, `seal`, `check`, `board` and the exit codes. |
+| `casestudy.py` | Render a case study (Markdown, self-contained HTML) from a report, and draft one from a repository. Statements are parsed in `model.py` as ordinary claims. |
+| `cli.py` | `init`, `seal`, `check`, `board`, `casestudy`, `scaffold` and the exit codes. |
 
 ## Statuses
 

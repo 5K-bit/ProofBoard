@@ -1,10 +1,35 @@
 {
-  "digest": "6352abe8cb737747571145bf787f3918b750a2af5d0f9a6fe062be2bcacb6a67",
+  "digest": "38438f77b353c54e7ca2aa76672c40fd6aba1bcf9f3582022354a3bf4a146b7d",
   "entries": {
+    "README.md": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "370a27104b3ff7f1232e6ed9839df400a0054965c4878e2e3618523df60be3b9",
+      "size": 12649
+    },
     "SECURITY.md": {
       "sealed_at": "2026-10-30T03:44:53Z",
       "sha256": "303de5fad091a9da1e121c1d2e6ff4813536f3763df368fad6dd57989a38fbae",
       "size": 2475
+    },
+    "docs/adr/0001-seal-by-hash-not-by-timestamp.md": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "b904e054f54b7962467f3a78a5960bd36b1df55a64da6949ce65d6ee0e62422e",
+      "size": 471
+    },
+    "docs/adr/0002-seal-refuses-silent-changes.md": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "65f3f2239da21e8087eb30b90f30a89b61ae716115015225ab24e839ee4c15f0",
+      "size": 541
+    },
+    "docs/adr/0003-rules-are-data-not-code.md": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "5264b129bc4721c8d00794e19ebb9a0e6a5ab2519436d49a504e1b79f0ec8888",
+      "size": 584
+    },
+    "docs/architecture.md": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "85a520dbefcc85276817bfb23e34030a73ec8dd1efa5577dd33ab25a9fd6c8a8",
+      "size": 2623
     },
     "docs/evidence/acceptance-transcript.txt": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -12,14 +37,14 @@
       "size": 6346
     },
     "docs/evidence/test-run.txt": {
-      "sealed_at": "2026-10-30T04:23:29Z",
-      "sha256": "74e4c12cd94bfc1f68eacd5fcfd539adb018a6c5fae549115f8d581045905378",
-      "size": 1285
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "501f4af5842db3333d55006593af27666b2c1e8c97904ae7cce1a66c8dc193de",
+      "size": 1444
     },
     "docs/threat-model.md": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "38b4dc245a4a3070433627908e093b0bc2f988172083883b157a35f1023228ba",
-      "size": 3069
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "fc77b1d6293da55f5ed5804b1032fa5740e32bfcde95115289c40891ad1faf2e",
+      "size": 3869
     },
     "pyproject.toml": {
       "sealed_at": "2026-10-30T03:44:53Z",

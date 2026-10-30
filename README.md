@@ -100,8 +100,39 @@ max_age_days = 30                      # optional; default comes from [board]
 | `seal [--accept-changes] [--refresh]` | Record each evidence file's SHA-256. Refuses to overwrite a changed hash unless `--accept-changes`; `--refresh` re-dates unchanged files |
 | `check [--format text\|json]` | Verify every claim; exit 2 unless all are proven |
 | `board [--format md\|html\|json] [--out F] [--strict]` | The full board with every file, hash and rule result |
+| `casestudy [--format md\|html] [--out F] [--strict] [--allow-missing]` | Render a case study: every sentence next to the status of its evidence. `--strict` exits 2 unless all are proven |
+| `scaffold [--out F] [--force]` | Draft a case study from the repo's ADRs, test logs, screenshots and README limitations |
 
-All commands take `-C ROOT`, `--config`, `--lock`; `seal`, `check` and `board` take `--now` for a fixed clock. Exit codes: 0 ok, 1 error (bad file, unreadable path), 2 not proven (or a refused seal).
+All commands take `-C ROOT`, `--config`, `--lock`; `seal`, `check`, `board` and `casestudy` take `--now` for a fixed clock. Exit codes: 0 ok, 1 error (bad file, unreadable path), 2 not proven (or a refused seal).
+
+### Case studies
+
+A portfolio write-up is a set of claims too: "the restore drill caught the damage", "coverage is 99%", "this limit remains". ProofBoard can build the write-up from the same machinery, so every sentence on the page carries the status of the files that back it, and an out-of-date page shows up red instead of quietly staying confident.
+
+```toml
+[casestudy]
+title = "RestorePoint: restore drills you can prove"
+subject = "restorepoint 0.1.0"
+author = "Your Name"
+
+[[story]]
+section = "decision"       # problem · evidence · decision · implementation · verification · limits
+text = "Snapshots are named by the hash of their manifest, so a changed snapshot cannot keep its id."
+links = ["https://github.com/OWNER/REPO/commit/abc123"]     # optional https links, shown but not checked
+  [[story.evidence]]
+  path = "docs/adr/0002-snapshot-id-is-the-hash-of-the-manifest.md"
+  contains = "SHA-256 of its manifest"
+  [[story.image]]          # optional screenshot, embedded in the HTML page
+  path = "docs/evidence/screens/summary.png"
+  alt = "What the summary tab shows"
+```
+
+- **Every sentence must cite evidence** (a `[[story.evidence]]` or `[[story.image]]`), or the file is rejected. A *problem* should cite a log that reproduces it, not a description of it.
+- Each sentence is an ordinary claim (`story-decision-1`, ...), so `proofboard seal` and `check` cover the case study with no extra step.
+- `proofboard casestudy --format html --out casestudy.html` writes one self-contained page; `--format md` writes Markdown. Both list the six sections in a fixed order, the author, and a standard Development practice note.
+- `proofboard scaffold` drafts the file from what the repository already holds (ADRs become decisions, a passing test log becomes a verification statement with a coverage floor, screenshots become evidence, README limitations are copied with their source). It leaves `TODO` where only you can write the sentence, and the file will not load until none is left.
+
+This repository's own case study is in [`proofboard.toml`](proofboard.toml); the rendered page is [docs/evidence/casestudy.html](docs/evidence/casestudy.html) (Markdown: [casestudy.md](docs/evidence/casestudy.md)).
 
 ## Architecture
 
@@ -145,10 +176,15 @@ ProofBoard does not claim more than it has shown:
 - **Staleness uses the sealing machine's clock.**
 - **Tested on made-up projects.** The demo and the fuzzing are hand-built. Real reports from other tools may expose gaps in the coverage and JUnit readers; send a sanitised example if one fails.
 - **Not yet verified on Windows by hand.** CI runs the tests on Windows; nothing has been checked against a real Windows workflow.
+- **A case study is only as good as its sentences.** ProofBoard checks that each cited file is unchanged and meets its rule; it cannot tell that a sentence says what the file shows. `scaffold` writes the structure, not the story.
+- **Links in a case study are not checked.** Commit and issue URLs are shown as given and labelled so; nothing is fetched.
+- **Only this repository's own case study has been built so far.** It has not yet been used for another project.
 
 ## Roadmap
 
 - [x] Claims file, seal, check, board; five rules; demo and self-check
+- [x] Case studies: `casestudy` and `scaffold`, with ProofBoard's own as the first
+- [ ] Build case studies for the other OBEOS repositories
 - [ ] Run on GitHub CI (Linux and Windows) and confirm the matrix is green
 - [ ] Read more formats: SARIF, CycloneDX and SPDX summaries, Cobertura variants
 - [ ] Import evidence from other OBEOS projects (Casefile exports, RestorePoint drills, Dockyard bundles)

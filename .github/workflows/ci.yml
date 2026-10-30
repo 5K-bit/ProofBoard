@@ -68,6 +68,10 @@ jobs:
       - run: python -m pip install .
       - name: Every claim about ProofBoard is backed by sealed evidence
         run: proofboard check
+      - name: The case study is fully proven and renders
+        run: |
+          proofboard casestudy --strict --format html --out /tmp/casestudy.html
+          proofboard casestudy --strict --format md --out /tmp/casestudy.md
 
   audit:
     runs-on: ubuntu-latest

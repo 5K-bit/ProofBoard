@@ -54,11 +54,52 @@ class Claim:
     evidence: tuple[Evidence, ...]
 
 
+SECTIONS = ("problem", "evidence", "decision", "implementation", "verification", "limits")
+IMAGE_TYPES = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
+}
+URL_RE = re.compile(r"^https://[A-Za-z0-9.-]+(:\d{1,5})?(/[^\s<>\"'`]*)?$")
+MAX_STORY_ITEMS = 200
+
+
+@dataclass(frozen=True)
+class Image:
+    path: str
+    alt: str
+
+
+@dataclass(frozen=True)
+class StoryItem:
+    """One sentence of a case study. Its claim (``claim_id``) is checked like any other claim."""
+
+    section: str
+    claim_id: str
+    text: str
+    links: tuple[str, ...] = ()
+    images: tuple[Image, ...] = ()
+
+
+@dataclass(frozen=True)
+class Story:
+    title: str
+    subject: str
+    author: str
+    summary: str
+    repo: str
+    items: tuple[StoryItem, ...]
+
+
 @dataclass(frozen=True)
 class Board:
     title: str
     subject: str
     claims: tuple[Claim, ...]
+    story: Story | None = None
 
     def evidence_paths(self) -> list[str]:
         seen: dict[str, None] = {}
@@ -139,8 +180,113 @@ def _rule(table: dict[str, Any], where: str) -> Rule:
     )
 
 
+def _evidence_list(ev_raw: Any, where: str) -> list[Evidence]:
+    if not isinstance(ev_raw, list):
+        raise ProofBoardError(f"{where}.evidence: must be [[...evidence]] tables")
+    evidence: list[Evidence] = []
+    for n, ev in enumerate(ev_raw, start=1):
+        ewhere = f"{where}.evidence #{n}"
+        if not isinstance(ev, dict):
+            raise ProofBoardError(f"{ewhere}: must be a table")
+        _only(
+            ev,
+            {"path", "contains", "not_contains", "matches", "coverage_min", "junit_clean"},
+            ewhere,
+        )
+        evidence.append(
+            Evidence(safe_relpath(ev.get("path", ""), f"{ewhere}.path"), _rule(ev, ewhere))
+        )
+    return evidence
+
+
+def _final_text(value: Any, where: str, limit: int, *, required: bool = True) -> str:
+    text = _text(value, where, limit, required=required)
+    if "TODO" in text:
+        raise ProofBoardError(f"{where}: still contains a TODO placeholder; write the sentence")
+    return text
+
+
+def _parse_story(raw: dict[str, Any], default_age: int) -> tuple[Story, list[Claim]]:
+    head = raw.get("casestudy")
+    if not isinstance(head, dict):
+        raise ProofBoardError("file: [[story]] tables need a [casestudy] table")
+    _only(head, {"title", "subject", "author", "summary", "repo"}, "[casestudy]")
+    repo = _text(head.get("repo"), "[casestudy].repo", 200, required=False)
+    if repo and not URL_RE.match(repo):
+        raise ProofBoardError("[casestudy].repo: must be an https:// URL")
+    items_raw = raw.get("story", [])
+    if not isinstance(items_raw, list) or len(items_raw) > MAX_STORY_ITEMS:
+        raise ProofBoardError(f"file: [[story]] must be a list of at most {MAX_STORY_ITEMS} tables")
+    items: list[StoryItem] = []
+    claims: list[Claim] = []
+    counts: dict[str, int] = {}
+    for index, table in enumerate(items_raw, start=1):
+        where = f"story #{index}"
+        if not isinstance(table, dict):
+            raise ProofBoardError(f"{where}: must be a table")
+        _only(table, {"section", "text", "links", "evidence", "image"}, where)
+        section = table.get("section")
+        if section not in SECTIONS:
+            raise ProofBoardError(f"{where}.section: must be one of {', '.join(SECTIONS)}")
+        text = _final_text(table.get("text"), f"{where}.text", MAX_STATEMENT)
+        links_raw = table.get("links", [])
+        if (
+            not isinstance(links_raw, list)
+            or len(links_raw) > 5
+            or not all(isinstance(u, str) and len(u) <= 300 and URL_RE.match(u) for u in links_raw)
+        ):
+            raise ProofBoardError(f"{where}.links: up to 5 plain https:// URLs")
+        images_raw = table.get("image", [])
+        if not isinstance(images_raw, list) or len(images_raw) > 6:
+            raise ProofBoardError(f"{where}.image: up to 6 [[story.image]] tables")
+        images: list[Image] = []
+        for n, img in enumerate(images_raw, start=1):
+            iwhere = f"{where}.image #{n}"
+            if not isinstance(img, dict):
+                raise ProofBoardError(f"{iwhere}: must be a table")
+            _only(img, {"path", "alt"}, iwhere)
+            path = safe_relpath(img.get("path", ""), f"{iwhere}.path")
+            if "." + path.rsplit(".", 1)[-1].lower() not in IMAGE_TYPES:
+                raise ProofBoardError(
+                    f"{iwhere}.path: must be one of {', '.join(sorted(IMAGE_TYPES))}"
+                )
+            alt = _final_text(img.get("alt"), f"{iwhere}.alt", 200)
+            images.append(Image(path, alt))
+        evidence = _evidence_list(table.get("evidence", []), where)
+        have = {e.path for e in evidence}
+        evidence += [Evidence(i.path, Rule()) for i in images if i.path not in have]
+        if not evidence:
+            raise ProofBoardError(
+                f"{where}: every statement needs evidence (a [[story.evidence]] or [[story.image]])"
+            )
+        counts[section] = counts.get(section, 0) + 1
+        cid = f"story-{section}-{counts[section]}"
+        title = text if len(text) <= 120 else text[:117] + "..."
+        claims.append(
+            Claim(
+                id=cid,
+                title=title,
+                statement=text,
+                max_age_days=default_age,
+                evidence=tuple(evidence),
+            )
+        )
+        items.append(StoryItem(section, cid, text, tuple(links_raw), tuple(images)))
+    story = Story(
+        title=_final_text(head.get("title"), "[casestudy].title", MAX_TITLE),
+        subject=_final_text(head.get("subject"), "[casestudy].subject", MAX_TITLE, required=False),
+        author=_final_text(head.get("author"), "[casestudy].author", 100),
+        summary=_final_text(
+            head.get("summary"), "[casestudy].summary", MAX_STATEMENT, required=False
+        ),
+        repo=repo,
+        items=tuple(items),
+    )
+    return story, claims
+
+
 def parse_board(raw: dict[str, Any]) -> Board:
-    _only(raw, {"board", "claim"}, "file")
+    _only(raw, {"board", "claim", "casestudy", "story"}, "file")
     head = raw.get("board")
     if not isinstance(head, dict):
         raise ProofBoardError("file: a [board] table is required")
@@ -172,22 +318,7 @@ def parse_board(raw: dict[str, Any]) -> Board:
             raise ProofBoardError(f"{where}.id: duplicate id {cid!r}")
         seen.add(cid)
         where = f"claim {cid}"
-        ev_raw = table.get("evidence", [])
-        if not isinstance(ev_raw, list):
-            raise ProofBoardError(f"{where}.evidence: must be [[claim.evidence]] tables")
-        evidence: list[Evidence] = []
-        for n, ev in enumerate(ev_raw, start=1):
-            ewhere = f"{where}.evidence #{n}"
-            if not isinstance(ev, dict):
-                raise ProofBoardError(f"{ewhere}: must be a table")
-            _only(
-                ev,
-                {"path", "contains", "not_contains", "matches", "coverage_min", "junit_clean"},
-                ewhere,
-            )
-            evidence.append(
-                Evidence(safe_relpath(ev.get("path", ""), f"{ewhere}.path"), _rule(ev, ewhere))
-            )
+        evidence = _evidence_list(table.get("evidence", []), where)
         claims.append(
             Claim(
                 id=cid,
@@ -199,7 +330,11 @@ def parse_board(raw: dict[str, Any]) -> Board:
                 evidence=tuple(evidence),
             )
         )
-    return Board(title=title, subject=subject, claims=tuple(claims))
+    story = None
+    if "casestudy" in raw or "story" in raw:
+        story, story_claims = _parse_story(raw, default_age)
+        claims += story_claims
+    return Board(title=title, subject=subject, claims=tuple(claims), story=story)
 
 
 def load_board(path: Path) -> Board:
