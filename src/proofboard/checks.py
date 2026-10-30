@@ -7,6 +7,7 @@ import re
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from pathlib import Path
+from xml.parsers import expat
 
 from .model import Rule
 
@@ -25,14 +26,27 @@ def _short(text: str, limit: int = 60) -> str:
     return text if len(text) <= limit else text[: limit - 1] + "…"
 
 
+class _Refused(Exception):
+    """Raised from a parser callback when the document declares a doctype or an entity."""
+
+
+def _refuse(*_args: object) -> None:
+    raise _Refused
+
+
 def _parse_xml(data: bytes) -> ET.Element | None:
-    """Parse XML, refusing documents that declare entities or a doctype (billion laughs, XXE)."""
-    lowered = data.lower()
-    if b"<!doctype" in lowered or b"<!entity" in lowered:
-        return None
+    """Parse XML, refusing any doctype or entity declaration (billion laughs, XXE).
+
+    Expat itself screens first, so the check holds for every encoding it understands
+    (UTF-16 included), not just for byte patterns in ASCII-compatible text.
+    """
+    screen = expat.ParserCreate()
+    screen.StartDoctypeDeclHandler = _refuse
+    screen.EntityDeclHandler = _refuse
     try:
-        return ET.fromstring(data)  # noqa: S314 - doctype and entities were refused above
-    except ET.ParseError:
+        screen.Parse(data, True)
+        return ET.fromstring(data)  # noqa: S314 - screened above: no doctype, no entities
+    except (_Refused, expat.ExpatError, ET.ParseError, LookupError):
         return None
 
 
@@ -57,22 +71,36 @@ def coverage_percent(name: str, data: bytes, text: str) -> float | None:
     return float(found[-1]) if found else None
 
 
+def _declared(element: ET.Element, name: str) -> int | None:
+    raw = element.attrib.get(name)
+    return None if raw is None else int(raw)
+
+
 def junit_totals(data: bytes) -> tuple[int, int, int] | None:
-    """Return (tests, failures, errors) summed over a JUnit XML file."""
+    """Return (tests, failures, errors) counted from the test cases of a JUnit XML file.
+
+    The counts come from the <testcase> elements themselves. Any total a suite declares
+    must agree with them; a report that contradicts itself is rejected (None).
+    """
     root = _parse_xml(data)
-    if root is None:
-        return None
-    if root.tag not in ("testsuite", "testsuites"):
+    if root is None or root.tag not in ("testsuite", "testsuites"):
         return None
     suites = [root] if root.tag == "testsuite" else root.findall("testsuite")
     if not suites:
         return None
-    tests = failures = errors = 0
+    cases = list(root.iter("testcase"))
+    tests = len(cases)
+    failures = sum(1 for c in cases if c.find("failure") is not None)
+    errors = sum(1 for c in cases if c.find("error") is not None)
+    counted = {"tests": tests, "failures": failures, "errors": errors}
     try:
-        for suite in suites:
-            tests += int(suite.attrib.get("tests", 0))
-            failures += int(suite.attrib.get("failures", 0))
-            errors += int(suite.attrib.get("errors", 0))
+        for name, value in counted.items():
+            root_declared = _declared(root, name)
+            if root_declared is not None and root_declared != value:
+                return None
+            declared = [_declared(suite, name) for suite in suites]
+            if all(d is not None for d in declared) and sum(d or 0 for d in declared) != value:
+                return None
     except ValueError:
         return None
     return tests, failures, errors

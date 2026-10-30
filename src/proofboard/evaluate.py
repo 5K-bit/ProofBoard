@@ -1,4 +1,4 @@
-"""Compare the claims file, the files on disk and the lock, and decide what is proven."""
+"""Compare the claims file, the files on disk and the lock, and decide which checks passed."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from .model import Board, Claim, safe_relpath
 
 # Worst first. A claim takes the worst status among its evidence.
 EVIDENCE_ORDER = ("failed", "missing", "drifted", "unsealed", "stale", "ok")
-CLAIM_ORDER = ("failed", "missing", "drifted", "unsealed", "stale", "unsupported", "proven")
+CLAIM_ORDER = ("failed", "missing", "drifted", "unsealed", "stale", "unsupported", "passed")
 
 
 @dataclass(frozen=True)
@@ -48,8 +48,8 @@ class Report:
         return out
 
     @property
-    def all_proven(self) -> bool:
-        return bool(self.results) and all(r.status == "proven" for r in self.results)
+    def all_passed(self) -> bool:
+        return bool(self.results) and all(r.status == "passed" for r in self.results)
 
 
 def resolve_inside(root: Path, rel: str) -> Path | None:
@@ -105,6 +105,6 @@ def evaluate(root: Path, board: Board, lock: dict[str, Entry] | None, now: datet
             status = "unsupported"
         else:
             worst = min((e.status for e in evidence), key=EVIDENCE_ORDER.index)
-            status = "proven" if worst == "ok" else worst
+            status = "passed" if worst == "ok" else worst
         results.append(ClaimResult(claim, status, evidence))
     return Report(board, now, lock is not None, tuple(results))

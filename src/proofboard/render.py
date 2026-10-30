@@ -13,7 +13,7 @@ from .ledger import format_time
 
 _MD_SPECIAL = re.compile(r"([\\`*_{}\[\]()#+!|~])")
 LABEL = {
-    "proven": "PROVEN",
+    "passed": "CHECKS PASSED",
     "stale": "STALE",
     "unsealed": "UNSEALED",
     "drifted": "DRIFTED",
@@ -104,7 +104,7 @@ h1{margin:0 0 .25rem}.mute{color:var(--mute)}
 table{border-collapse:collapse;width:100%;margin:1rem 0}
 td,th{border-bottom:1px solid var(--line);padding:.4rem .6rem;text-align:left}
 .tag{font:700 .75rem ui-monospace,monospace;padding:.15rem .5rem;border:1px solid var(--mute);
-border-radius:.25rem}.proven,.ok{color:#3ddc97;border-color:#3ddc97}
+border-radius:.25rem}.passed,.ok{color:#3ddc97;border-color:#3ddc97}
 .failed,.missing,.drifted{color:#ff7a59;border-color:#ff7a59}
 .stale,.unsealed,.unsupported{color:#ff9f1c;border-color:#ff9f1c}
 code{font-family:ui-monospace,monospace;color:var(--accent)}li{margin:.2rem 0}
@@ -183,7 +183,7 @@ def as_json(report: Report) -> str:
         "subject": report.board.subject,
         "checked": format_time(report.now),
         "sealed": report.sealed,
-        "all_proven": report.all_proven,
+        "all_passed": report.all_passed,
         "counts": report.counts(),
         "claims": claims,
     }

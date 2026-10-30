@@ -96,10 +96,10 @@ def test_status_walk(project: Path) -> None:
     ev = project / "ev" / "run.txt"
     assert evaluate(project, board, None, NOW).results[0].status == "unsealed"
     lock = _lock(project)
-    assert evaluate(project, board, lock, NOW).all_proven
+    assert evaluate(project, board, lock, NOW).all_passed
     later = parse_time("2027-01-29T17:00:00Z")
     stale = evaluate(project, board, lock, later)
-    assert stale.results[0].status == "stale" and not stale.all_proven
+    assert stale.results[0].status == "stale" and not stale.all_passed
     ev.write_text("changed passed\n", encoding="utf-8")
     assert evaluate(project, board, lock, NOW).results[0].status == "drifted"
     ev.write_text("nothing here\n", encoding="utf-8")
@@ -114,12 +114,12 @@ def test_claim_without_evidence_is_unsupported(tmp_path: Path) -> None:
         '[board]\ntitle = "T"\n[[claim]]\nid = "a"\ntitle = "A"\n', encoding="utf-8"
     )
     report = evaluate(tmp_path, load_board(tmp_path / "p.toml"), None, NOW)
-    assert report.results[0].status == "unsupported" and not report.all_proven
+    assert report.results[0].status == "unsupported" and not report.all_passed
 
 
-def test_empty_board_is_not_proven(tmp_path: Path) -> None:
+def test_empty_board_has_not_passed(tmp_path: Path) -> None:
     (tmp_path / "p.toml").write_text('[board]\ntitle = "T"\n', encoding="utf-8")
-    assert not evaluate(tmp_path, load_board(tmp_path / "p.toml"), None, NOW).all_proven
+    assert not evaluate(tmp_path, load_board(tmp_path / "p.toml"), None, NOW).all_passed
 
 
 def test_worst_status_wins(tmp_path: Path) -> None:

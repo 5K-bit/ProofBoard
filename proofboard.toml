@@ -31,7 +31,7 @@ statement = "The recorded demo shows a drifted claim and a refused re-seal."
   [[claim.evidence]]
   path = "docs/evidence/acceptance-transcript.txt"
   contains = [
-    "1 drifted, 3 proven",
+    "1 drifted, 3 passed",
     "These sealed files have changed. Nothing was written.",
     "4 claims: 4 stale",
   ]
@@ -47,11 +47,11 @@ statement = "Unsafe paths, XML entities, markup in text and 300 mutated claims f
 
   [[claim.evidence]]
   path = "tests/unit/test_model_checks.py"
-  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused", "test_encoded_entities_refused", "test_junit_cannot_contradict_itself"]
 
 [[claim]]
 id = "threat-model"
-title = "The limits of what a seal proves are written down"
+title = "The limits of what a seal shows are written down"
 statement = "The threat model and security policy state that ProofBoard detects change, not dishonesty."
 
   [[claim.evidence]]

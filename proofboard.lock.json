@@ -1,25 +1,25 @@
 {
-  "digest": "26ae3cce00eb32a02b67a7d0b694b62a7611730dbdaaf9f55e4caaac4da49d24",
+  "digest": "548105a1130ccd62b858ee9aff11fc1a2a487cccbe6d7fc74270ee8b5e9dedfb",
   "entries": {
     "SECURITY.md": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "303de5fad091a9da1e121c1d2e6ff4813536f3763df368fad6dd57989a38fbae",
-      "size": 2475
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "a6f46d8ad99ce1bd72a50b6729b0ad154a1ed78b2bdaeba2d4ee8998ce70c8dc",
+      "size": 2491
     },
     "docs/evidence/acceptance-transcript.txt": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "07ae788e57aea80ac6036eba7cf8cf57f83ba96a9e81793727743a9101eba7d2",
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "5bd675e35f3a86c22024b88d2d682d8811187e08c2e049295120fa30936f4d2a",
       "size": 6346
     },
     "docs/evidence/test-run.txt": {
-      "sealed_at": "2026-10-30T03:45:00Z",
-      "sha256": "d14b1c4740d5bbb3de8950a2565e594396b289349f2a68cbf7b23f7376b25c9a",
-      "size": 1285
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "f751c9db6478b5772f52815f6d253ad796514bcf85d60095c44889dd5756a3cc",
+      "size": 1347
     },
     "docs/threat-model.md": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "38b4dc245a4a3070433627908e093b0bc2f988172083883b157a35f1023228ba",
-      "size": 3069
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "03fddd810d481ee67e94de42b662e0ba57ce816a60c14d9e9d3aa0b3a708261a",
+      "size": 3086
     },
     "pyproject.toml": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -27,9 +27,9 @@
       "size": 1684
     },
     "tests/unit/test_model_checks.py": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "27d15d325ae8415297fddd91b1ed888217a31fb5474e95b31f333ccadc0c1303",
-      "size": 6742
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "996e4a55dd1cccb895af6635ec24d3fad371b319cd72e8c2665791c0b6e61280",
+      "size": 9857
     },
     "tests/unit/test_render_fuzz.py": {
       "sealed_at": "2026-10-30T03:44:53Z",

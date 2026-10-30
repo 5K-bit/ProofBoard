@@ -61,7 +61,7 @@ def _parser() -> argparse.ArgumentParser:
     seal.add_argument("--accept-changes", action="store_true", help="allow sealed files to change")
     seal.add_argument("--refresh", action="store_true", help="re-date unchanged evidence too")
 
-    check = sub.add_parser("check", help="verify every claim; exit 2 if any is not proven")
+    check = sub.add_parser("check", help="verify every claim; exit 2 if any has not passed")
     common(check)
     check.add_argument("--format", choices=["text", "json"], default="text")
 
@@ -69,7 +69,7 @@ def _parser() -> argparse.ArgumentParser:
     common(board)
     board.add_argument("--format", choices=["md", "html", "json"], default="md")
     board.add_argument("--out", help="write to this file instead of the screen")
-    board.add_argument("--strict", action="store_true", help="exit 2 if any claim is not proven")
+    board.add_argument("--strict", action="store_true", help="exit 2 if any claim has not passed")
     return parser
 
 
@@ -129,7 +129,7 @@ def _report(args: argparse.Namespace):  # type: ignore[no-untyped-def]
 def _check(args: argparse.Namespace) -> int:
     report = _report(args)
     sys.stdout.write(render.as_json(report) if args.format == "json" else render.text(report))
-    return 0 if report.all_proven else 2
+    return 0 if report.all_passed else 2
 
 
 def _board(args: argparse.Namespace) -> int:
@@ -142,7 +142,7 @@ def _board(args: argparse.Namespace) -> int:
         print(f"wrote {args.out}")
     else:
         sys.stdout.write(body)
-    return 2 if args.strict and not report.all_proven else 0
+    return 2 if args.strict and not report.all_passed else 0
 
 
 def main(argv: list[str] | None = None) -> int:
