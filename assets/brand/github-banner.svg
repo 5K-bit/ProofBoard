@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+<title id="title">ProofBoard — Every claim, tied to its evidence</title><desc id="desc">A ledger that links each claim to sealed evidence files and tells you when one is missing, changed, failing or stale. By OBEOS.</desc>
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".035"/></pattern></defs>
+<rect width="1200" height="400" rx="18" fill="#0c1220"/><rect width="1200" height="400" rx="18" fill="url(#grid)"/>
+<path d="M48 40h42" stroke="#60a5fa" stroke-width="5"/>
+<text x="106" y="46" fill="#c5cddb" font-family="Arial, sans-serif" font-size="16" letter-spacing="3">BY OBEOS</text>
+<text x="48" y="114" fill="#60a5fa" font-family="Arial, sans-serif" font-size="16" letter-spacing="3">ASSURANCE / 06</text>
+<text x="45" y="194" fill="#f3f5fa" font-family="Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-2">ProofBoard</text>
+<text x="48" y="247" fill="#e0e6ef" font-family="Arial, sans-serif" font-size="25">Every claim, tied to its evidence</text>
+<text x="48" y="285" fill="#99a7bc" font-family="Arial, sans-serif" font-size="21">Seal the evidence. Find out when it goes missing, changes, fails or goes stale.</text>
+<path d="M48 331h1104" stroke="#283345"/>
+<text x="48" y="366" fill="#99a7bc" font-family="Arial, sans-serif" font-size="15" letter-spacing="2">LOCAL SYSTEMS. CLEAR PURPOSE.</text>
+<text x="1106" y="366" fill="#60a5fa" font-family="Arial, sans-serif" font-size="17" font-weight="700">5K</text>
+<g transform="translate(905 66)" fill="none" stroke="#60a5fa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="10" width="190" height="230" rx="14"/><path d="M48 66l14 14 26-30M108 66h72"/><path d="M48 124l14 14 26-30M108 124h56"/><path d="M52 184l30 30M82 184l-30 30M108 198h72"/></g>
+</svg>
