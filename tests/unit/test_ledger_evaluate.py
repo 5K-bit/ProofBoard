@@ -80,8 +80,11 @@ def test_lock_too_large(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None
     path.write_text("{}" * 5, encoding="utf-8")
     with pytest.raises(ProofBoardError, match="larger"):
         ledger.load_lock(path)
-    with pytest.raises(ProofBoardError, match="cannot read"):
-        ledger.load_lock(path / "x")
+    # below a file: an error on Linux, simply "no lock" on Windows
+    try:
+        assert ledger.load_lock(path / "x") is None
+    except ProofBoardError as exc:
+        assert "cannot read" in str(exc)
 
 
 def _lock(project: Path, when: str = "2026-10-29T17:00:00Z") -> dict[str, Entry]:

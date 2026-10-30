@@ -89,8 +89,9 @@ def test_load_board_errors(tmp_path: Path) -> None:
     bad.write_text("#" * (2 << 20), encoding="utf-8")
     with pytest.raises(ProofBoardError, match="larger"):
         load_board(bad)
-    with pytest.raises(ProofBoardError, match="cannot read"):
-        load_board(tmp_path / "bad.toml" / "x")  # a path below a file
+    # a path below a file: Linux reports "not a directory", Windows "not found"
+    with pytest.raises(ProofBoardError, match="cannot read|not found"):
+        load_board(tmp_path / "bad.toml" / "x")
 
 
 JUNIT_OK = b'<testsuites><testsuite tests="3" failures="0" errors="0"/><testsuite tests="2" failures="0" errors="0"/></testsuites>'
