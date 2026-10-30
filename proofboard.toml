@@ -1,0 +1,63 @@
+[board]
+title = "ProofBoard"
+subject = "proofboard 0.1.0"
+default_max_age_days = 180
+
+[[claim]]
+id = "tests-pass"
+title = "The test suite passes with at least 90% coverage"
+statement = "The recorded run of the whole suite finished with no failures and a coverage floor above 90%."
+
+  [[claim.evidence]]
+  path = "docs/evidence/test-run.txt"
+  contains = "passed"
+  not_contains = "failed"
+  coverage_min = 90
+
+[[claim]]
+id = "no-runtime-deps"
+title = "No runtime dependencies"
+statement = "The package declares an empty dependency list; development tools are an optional extra."
+
+  [[claim.evidence]]
+  path = "pyproject.toml"
+  matches = '^dependencies = \[\]$'
+
+[[claim]]
+id = "drift-is-caught"
+title = "A changed evidence file is caught, and sealing will not hide it"
+statement = "The recorded demo shows a drifted claim and a refused re-seal."
+
+  [[claim.evidence]]
+  path = "docs/evidence/acceptance-transcript.txt"
+  contains = [
+    "1 drifted, 3 proven",
+    "These sealed files have changed. Nothing was written.",
+    "4 claims: 4 stale",
+  ]
+
+[[claim]]
+id = "hostile-input"
+title = "Hostile claims, locks and evidence are handled"
+statement = "Unsafe paths, XML entities, markup in text and 300 mutated claims files are covered by tests that are part of the recorded run."
+
+  [[claim.evidence]]
+  path = "tests/unit/test_render_fuzz.py"
+  contains = ["test_hostile_text_is_inert", "test_fuzzed_claims_files_never_crash"]
+
+  [[claim.evidence]]
+  path = "tests/unit/test_model_checks.py"
+  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+
+[[claim]]
+id = "threat-model"
+title = "The limits of what a seal proves are written down"
+statement = "The threat model and security policy state that ProofBoard detects change, not dishonesty."
+
+  [[claim.evidence]]
+  path = "docs/threat-model.md"
+  contains = "Honesty of the evidence"
+
+  [[claim.evidence]]
+  path = "SECURITY.md"
+  contains = "It detects change, not dishonesty."

@@ -1,0 +1,126 @@
+{
+  "all_proven": true,
+  "checked": "2026-10-29T17:00:00Z",
+  "claims": [
+    {
+      "evidence": [
+        {
+          "checks": [
+            {
+              "detail": "148 tests, 0 failures, 0 errors",
+              "name": "junit_clean",
+              "ok": true
+            }
+          ],
+          "note": "matches the sealed record",
+          "path": "evidence/junit.xml",
+          "sealed_at": "2026-10-29T17:00:00Z",
+          "sealed_sha256": "a0b84dd100a4d516816c07dfc6a5646b7deaf071e6d60b0dab66c4fec8dde72b",
+          "sha256": "a0b84dd100a4d516816c07dfc6a5646b7deaf071e6d60b0dab66c4fec8dde72b",
+          "status": "ok"
+        },
+        {
+          "checks": [
+            {
+              "detail": "coverage 93.4% (needs at least 90%)",
+              "name": "coverage_min",
+              "ok": true
+            }
+          ],
+          "note": "matches the sealed record",
+          "path": "evidence/coverage.xml",
+          "sealed_at": "2026-10-29T17:00:00Z",
+          "sealed_sha256": "8635e19b1441a566a9727b649297291efb005a92ceb946713b7675ecd056969c",
+          "sha256": "8635e19b1441a566a9727b649297291efb005a92ceb946713b7675ecd056969c",
+          "status": "ok"
+        }
+      ],
+      "id": "tests-pass",
+      "status": "proven",
+      "title": "The test suite passes with strong coverage"
+    },
+    {
+      "evidence": [
+        {
+          "checks": [
+            {
+              "detail": "contains \"drill: ok\"",
+              "name": "contains",
+              "ok": true
+            },
+            {
+              "detail": "contains \"checksums matched: 214 of 214\"",
+              "name": "contains",
+              "ok": true
+            },
+            {
+              "detail": "does not contain \"mismatch\"",
+              "name": "not_contains",
+              "ok": true
+            }
+          ],
+          "note": "matches the sealed record",
+          "path": "evidence/restore-drill.txt",
+          "sealed_at": "2026-10-29T17:00:00Z",
+          "sealed_sha256": "dc0beaca0e6d14c5f433334aa48ab7e8c562e549269a9e62b15a04ce0110f1fe",
+          "sha256": "dc0beaca0e6d14c5f433334aa48ab7e8c562e549269a9e62b15a04ce0110f1fe",
+          "status": "ok"
+        }
+      ],
+      "id": "restore-drill",
+      "status": "proven",
+      "title": "A backup can be restored"
+    },
+    {
+      "evidence": [
+        {
+          "checks": [
+            {
+              "detail": "matches /^dependencies = \\[\\]$/",
+              "name": "matches",
+              "ok": true
+            }
+          ],
+          "note": "matches the sealed record",
+          "path": "evidence/pyproject-excerpt.toml",
+          "sealed_at": "2026-10-29T17:00:00Z",
+          "sealed_sha256": "e1e75b2f84eb21460788b0683502b31b65fa74e789362210a2af3cee118c3976",
+          "sha256": "e1e75b2f84eb21460788b0683502b31b65fa74e789362210a2af3cee118c3976",
+          "status": "ok"
+        }
+      ],
+      "id": "no-runtime-deps",
+      "status": "proven",
+      "title": "No runtime dependencies"
+    },
+    {
+      "evidence": [
+        {
+          "checks": [
+            {
+              "detail": "contains \"Reviewed by\"",
+              "name": "contains",
+              "ok": true
+            }
+          ],
+          "note": "matches the sealed record",
+          "path": "docs/threat-model-review.md",
+          "sealed_at": "2026-10-29T17:00:00Z",
+          "sealed_sha256": "00400a3209a51b2ff13488d221ae8e4a9119ac68c98cb8c61146589b06365402",
+          "sha256": "00400a3209a51b2ff13488d221ae8e4a9119ac68c98cb8c61146589b06365402",
+          "status": "ok"
+        }
+      ],
+      "id": "threat-model-reviewed",
+      "status": "proven",
+      "title": "The threat model was reviewed this quarter"
+    }
+  ],
+  "counts": {
+    "proven": 4
+  },
+  "proofboard": "0.1.0",
+  "sealed": true,
+  "subject": "orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard)",
+  "title": "Orchard Sync"
+}

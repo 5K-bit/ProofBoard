@@ -1,0 +1,41 @@
+{
+  "digest": "26ae3cce00eb32a02b67a7d0b694b62a7611730dbdaaf9f55e4caaac4da49d24",
+  "entries": {
+    "SECURITY.md": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "303de5fad091a9da1e121c1d2e6ff4813536f3763df368fad6dd57989a38fbae",
+      "size": 2475
+    },
+    "docs/evidence/acceptance-transcript.txt": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "07ae788e57aea80ac6036eba7cf8cf57f83ba96a9e81793727743a9101eba7d2",
+      "size": 6346
+    },
+    "docs/evidence/test-run.txt": {
+      "sealed_at": "2026-10-30T03:45:00Z",
+      "sha256": "d14b1c4740d5bbb3de8950a2565e594396b289349f2a68cbf7b23f7376b25c9a",
+      "size": 1285
+    },
+    "docs/threat-model.md": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "38b4dc245a4a3070433627908e093b0bc2f988172083883b157a35f1023228ba",
+      "size": 3069
+    },
+    "pyproject.toml": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "d57cb5008af7836689e2334aafff5152f78b6c44f2a406870e546737aca75bc3",
+      "size": 1684
+    },
+    "tests/unit/test_model_checks.py": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "27d15d325ae8415297fddd91b1ed888217a31fb5474e95b31f333ccadc0c1303",
+      "size": 6742
+    },
+    "tests/unit/test_render_fuzz.py": {
+      "sealed_at": "2026-10-30T03:44:53Z",
+      "sha256": "cf1401d414b4def0488d180af96b885cd1381ec9a9d9dce76c2636ade95498a9",
+      "size": 3180
+    }
+  },
+  "format": 1
+}
