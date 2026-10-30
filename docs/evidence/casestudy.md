@@ -33,10 +33,11 @@ A small command-line tool that links each claim about a project to the evidence 
 ## Verification
 
 7. The recorded run of the test suite passed with coverage above 90%. **[PROVEN]**
-   - evidence: [`docs/evidence/test-run.txt`](docs/evidence/test-run.txt), sha256 501f4af5842d
-8. Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities, markup in text, and mutated claims files. **[PROVEN]**
+   - evidence: [`docs/evidence/test-run.txt`](docs/evidence/test-run.txt), sha256 1d14181f307f
+8. Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities \(also when re-encoded as UTF-16\), markup in text, and mutated claims files. **[PROVEN]**
    - evidence: [`tests/unit/test_render_fuzz.py`](tests/unit/test_render_fuzz.py), sha256 cf1401d414b4
    - evidence: [`tests/unit/test_model_checks.py`](tests/unit/test_model_checks.py), sha256 e69a0e53e1e8
+   - evidence: [`tests/unit/test_xml_encodings.py`](tests/unit/test_xml_encodings.py), sha256 d57e689fe83e
 
 ## Remaining limits
 

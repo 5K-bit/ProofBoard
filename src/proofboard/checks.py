@@ -26,12 +26,21 @@ def _short(text: str, limit: int = 60) -> str:
 
 
 def _parse_xml(data: bytes) -> ET.Element | None:
-    """Parse XML, refusing documents that declare entities or a doctype (billion laughs, XXE)."""
-    lowered = data.lower()
-    if b"<!doctype" in lowered or b"<!entity" in lowered:
+    """Parse XML, refusing documents that declare entities or a doctype (billion laughs, XXE).
+
+    The document must be UTF-8 text. Screening bytes would miss a UTF-16 or EBCDIC document that
+    declares entities, so anything that is not valid UTF-8 (or holds a NUL) is refused, and the
+    parser is given the decoded text, which it always reads as UTF-8 whatever the file declares.
+    """
+    try:
+        text = data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return None
+    lowered = text.lower()
+    if "\x00" in text or "<!doctype" in lowered or "<!entity" in lowered:
         return None
     try:
-        return ET.fromstring(data)  # noqa: S314 - doctype and entities were refused above
+        return ET.fromstring(text)  # noqa: S314 - doctype and entities were refused above
     except ET.ParseError:
         return None
 

@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- **Security:** the XML guard for JUnit and coverage files only looked for ASCII `<!DOCTYPE` and `<!ENTITY`, so the same declarations in a UTF-16 (or other non-UTF-8) file reached the parser. XML must now be valid UTF-8 and is parsed from decoded text. Regression tests in `tests/unit/test_xml_encodings.py`.
+
 ### Added
 
 - Case studies. A `[casestudy]` table and `[[story]]` tables describe a write-up in six fixed sections; every sentence must cite evidence and becomes a claim that `seal` and `check` already cover.

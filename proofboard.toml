@@ -39,7 +39,7 @@ statement = "The recorded demo shows a drifted claim and a refused re-seal."
 [[claim]]
 id = "hostile-input"
 title = "Hostile claims, locks and evidence are handled"
-statement = "Unsafe paths, XML entities, markup in text and 300 mutated claims files are covered by tests that are part of the recorded run."
+statement = "Unsafe paths, XML entities (including re-encoded documents), markup in text and 300 mutated claims files are covered by tests that are part of the recorded run."
 
   [[claim.evidence]]
   path = "tests/unit/test_render_fuzz.py"
@@ -48,6 +48,10 @@ statement = "Unsafe paths, XML entities, markup in text and 300 mutated claims f
   [[claim.evidence]]
   path = "tests/unit/test_model_checks.py"
   contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+
+  [[claim.evidence]]
+  path = "tests/unit/test_xml_encodings.py"
+  contains = ["test_entities_are_refused_in_every_encoding", "test_ebcdic_declared_encoding_is_refused"]
 
 [[claim]]
 id = "threat-model"
@@ -134,13 +138,16 @@ text = "The recorded run of the test suite passed with coverage above 90%."
 
 [[story]]
 section = "verification"
-text = "Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities, markup in text, and mutated claims files."
+text = "Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities (also when re-encoded as UTF-16), markup in text, and mutated claims files."
   [[story.evidence]]
   path = "tests/unit/test_render_fuzz.py"
   contains = ["test_hostile_text_is_inert", "test_fuzzed_claims_files_never_crash"]
   [[story.evidence]]
   path = "tests/unit/test_model_checks.py"
   contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+  [[story.evidence]]
+  path = "tests/unit/test_xml_encodings.py"
+  contains = ["test_entities_are_refused_in_every_encoding"]
 
 [[story]]
 section = "limits"

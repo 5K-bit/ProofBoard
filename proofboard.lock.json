@@ -1,5 +1,5 @@
 {
-  "digest": "38438f77b353c54e7ca2aa76672c40fd6aba1bcf9f3582022354a3bf4a146b7d",
+  "digest": "fbf2fcb7ffb5bdb71952286eea5367f2bcfe42fef6ddadd3cf0ec8bac683cd3b",
   "entries": {
     "README.md": {
       "sealed_at": "2026-10-30T12:00:00Z",
@@ -7,9 +7,9 @@
       "size": 12649
     },
     "SECURITY.md": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "303de5fad091a9da1e121c1d2e6ff4813536f3763df368fad6dd57989a38fbae",
-      "size": 2475
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "29d9148e7d5e482b76739a1250538b1e24180ced96cd165fabf37ced52c986b1",
+      "size": 2589
     },
     "docs/adr/0001-seal-by-hash-not-by-timestamp.md": {
       "sealed_at": "2026-10-30T12:00:00Z",
@@ -38,13 +38,13 @@
     },
     "docs/evidence/test-run.txt": {
       "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "501f4af5842db3333d55006593af27666b2c1e8c97904ae7cce1a66c8dc193de",
+      "sha256": "1d14181f307fd4aa3e95995b5e3da0fa6f576fb808b30c00090f2f6fad67ac33",
       "size": 1444
     },
     "docs/threat-model.md": {
       "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "fc77b1d6293da55f5ed5804b1032fa5740e32bfcde95115289c40891ad1faf2e",
-      "size": 3869
+      "sha256": "614d40467abc2993345b3fa6674c66aae8d355617e2dc07561e08c1e7ee8fc73",
+      "size": 4175
     },
     "pyproject.toml": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -60,6 +60,11 @@
       "sealed_at": "2026-10-30T03:44:53Z",
       "sha256": "cf1401d414b4def0488d180af96b885cd1381ec9a9d9dce76c2636ade95498a9",
       "size": 3180
+    },
+    "tests/unit/test_xml_encodings.py": {
+      "sealed_at": "2026-10-30T12:00:00Z",
+      "sha256": "d57e689fe83e9904b9b03cd45874a19cc3bd9c7e54e2d2145fc7958400ce6249",
+      "size": 1832
     }
   },
   "format": 1

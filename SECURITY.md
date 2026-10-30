@@ -10,7 +10,7 @@ ProofBoard checks files in a project folder you control against a claims file yo
 - **The lock is tamper-evident, not tamper-proof.** The lock carries a digest of its own contents, so a hand edit or damage is caught. Anyone who can write both the lock and the evidence can regenerate both consistently. Commit the lock to version control and review changes to it like code; ProofBoard does no signing.
 - **Sealing never changes a recorded hash silently.** `seal` refuses to overwrite a hash that changed unless you pass `--accept-changes`.
 - **Paths stay inside the project.** Absolute paths, `..`, backslashes and drive letters are rejected when the claims file is read, and a symlink that leads outside the folder makes that evidence fail rather than being followed.
-- **Evidence is hostile input.** Files are streamed to hash them; content rules read at most 8 MiB. XML with a doctype or entity declaration is refused (no entity expansion), and no file is executed or imported.
+- **Evidence is hostile input.** Files are streamed to hash them; content rules read at most 8 MiB. XML with a doctype or entity declaration is refused (no entity expansion), and so is any XML that is not UTF-8 text (a UTF-16 or EBCDIC file could otherwise hide a declaration from the check). No file is executed or imported.
 - **Reports are escaped.** Text from claims and evidence is escaped for Markdown and HTML; JSON is written by the standard library.
 - **Regular expressions are yours.** `matches` runs a regular expression you wrote against a file; a pathological pattern can be slow. Only the claims file's author controls patterns.
 
