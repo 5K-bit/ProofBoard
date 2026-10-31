@@ -6,18 +6,7 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
-### Fixed
-
-- **Security:** the XML guard for JUnit and coverage files only looked for ASCII `<!DOCTYPE` and `<!ENTITY`, so the same declarations in a UTF-16 (or other non-UTF-8) file reached the parser. XML must now be valid UTF-8 and is parsed from decoded text. Regression tests in `tests/unit/test_xml_encodings.py`.
-
-### Added
-
-- Case studies. A `[casestudy]` table and `[[story]]` tables describe a write-up in six fixed sections; every sentence must cite evidence and becomes a claim that `seal` and `check` already cover.
-- `proofboard casestudy` renders Markdown or one self-contained HTML page (screenshots embedded, text escaped) with each sentence's evidence status; `--strict` exits 2 unless all are proven.
-- `proofboard scaffold` drafts a case study from ADRs, test logs, screenshots and README limitations, leaving `TODO` where a human sentence is needed.
-- This repository's own case study.
-
-## [0.1.0] - 2026-10-29
+## [0.1.0] - 2026-10-31
 
 First working version.
 
@@ -29,3 +18,11 @@ First working version.
 - Claim statuses: proven, stale, unsealed, drifted, missing, failed, no evidence.
 - `proofboard init`, `seal` (refuses silent changes; `--accept-changes`, `--refresh`), `check` (exit 2 unless every claim is proven; text or JSON) and `board` (Markdown, HTML or JSON; `--strict`).
 - A demo project and an acceptance script whose transcript is recorded in `docs/evidence/`.
+- Case studies. A `[casestudy]` table and `[[story]]` tables describe a write-up in six fixed sections; every sentence must cite evidence and becomes a claim that `seal` and `check` already cover.
+- `proofboard casestudy` renders Markdown or one self-contained HTML page (screenshots embedded, text escaped) with each sentence's evidence status; `--strict` exits 2 unless all are proven.
+- `proofboard scaffold` drafts a case study from ADRs, test logs, screenshots and README limitations, leaving `TODO` where a human sentence is needed.
+- This repository's own case study.
+
+### Fixed
+
+- **Security:** the XML guard for JUnit and coverage files only looked for ASCII `<!DOCTYPE` and `<!ENTITY`, so the same declarations in a UTF-16 (or other non-UTF-8) file reached the parser. XML must now be valid UTF-8 and is parsed from decoded text. Regression tests in `tests/unit/test_xml_encodings.py`.

@@ -185,7 +185,7 @@ ProofBoard does not claim more than it has shown:
 - [x] Claims file, seal, check, board; five rules; demo and self-check
 - [x] Case studies: `casestudy` and `scaffold`, with ProofBoard's own as the first
 - [ ] Build case studies for the other OBEOS repositories
-- [ ] Run on GitHub CI (Linux and Windows) and confirm the matrix is green
+- [x] Run on GitHub CI (Linux and Windows): the matrix is green on `main` (checked 2026-10-31)
 - [ ] Read more formats: SARIF, CycloneDX and SPDX summaries, Cobertura variants
 - [ ] Import evidence from other OBEOS projects (Casefile exports, RestorePoint drills, Dockyard bundles)
 - [ ] `obeos.manifest.json` integration so a component's release can be gated on its claims

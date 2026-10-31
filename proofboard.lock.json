@@ -1,10 +1,10 @@
 {
-  "digest": "fbf2fcb7ffb5bdb71952286eea5367f2bcfe42fef6ddadd3cf0ec8bac683cd3b",
+  "digest": "80c122cc169f6c20f9dc3c073d49f44c9e9a33fa56c0d9521c936d6e3bc397e9",
   "entries": {
     "README.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "370a27104b3ff7f1232e6ed9839df400a0054965c4878e2e3618523df60be3b9",
-      "size": 12649
+      "sealed_at": "2026-10-31T21:00:00Z",
+      "sha256": "7196aa679a168cc1a7b2827f3f5f9e4dea76cbf7e10e6fe21057362bd00e192f",
+      "size": 12669
     },
     "SECURITY.md": {
       "sealed_at": "2026-10-30T12:00:00Z",

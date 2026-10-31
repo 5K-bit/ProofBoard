@@ -4,7 +4,7 @@ proofboard 0.1.0 · By Louis Boddie · [repository](https://github.com/5K-bit/Pr
 
 A small command-line tool that links each claim about a project to the evidence files behind it, seals their SHA-256, and reports when that evidence changes, goes missing, fails a rule or goes stale.
 
-> As of 2026-10-30T12:00:00Z, all 11 statements are backed by sealed, unchanged evidence.
+> As of 2026-10-31T21:00:00Z, all 11 statements are backed by sealed, unchanged evidence.
 
 ## The problem
 
@@ -42,11 +42,11 @@ A small command-line tool that links each claim about a project to the evidence 
 ## Remaining limits
 
 9. A seal proves a file is what it was when sealed, not that it was honest; a sealed false log reads as proven. **[PROVEN]**
-   - evidence: [`README.md`](README.md), sha256 370a27104b3f
+   - evidence: [`README.md`](README.md), sha256 7196aa679a16
 10. The lock is tamper-evident, not signed: anyone who can rewrite both the lock and the evidence can make a board green. **[PROVEN]**
-   - evidence: [`README.md`](README.md), sha256 370a27104b3f
+   - evidence: [`README.md`](README.md), sha256 7196aa679a16
 11. It has only been tried on made-up projects, and not yet by hand on Windows. **[PROVEN]**
-   - evidence: [`README.md`](README.md), sha256 370a27104b3f
+   - evidence: [`README.md`](README.md), sha256 7196aa679a16
 
 ## Development practice
 
