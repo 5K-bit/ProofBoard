@@ -89,27 +89,68 @@ def test_load_board_errors(tmp_path: Path) -> None:
     bad.write_text("#" * (2 << 20), encoding="utf-8")
     with pytest.raises(ProofBoardError, match="larger"):
         load_board(bad)
-    # a path below a file: Linux reports "not a directory", Windows "not found"
-    with pytest.raises(ProofBoardError, match="cannot read|not found"):
-        load_board(tmp_path / "bad.toml" / "x")
+    with pytest.raises(ProofBoardError, match="cannot read"):
+        load_board(tmp_path / "bad.toml" / "x")  # a path below a file, on every OS
 
 
-JUNIT_OK = b'<testsuites><testsuite tests="3" failures="0" errors="0"/><testsuite tests="2" failures="0" errors="0"/></testsuites>'
+def _case(n: int, inner: str = "") -> str:
+    return "".join(f'<testcase name="t{i}">{inner if i == 0 else ""}</testcase>' for i in range(n))
+
+
+JUNIT_OK = (
+    f'<testsuites><testsuite tests="3" failures="0" errors="0">{_case(3)}</testsuite>'
+    f'<testsuite tests="2" failures="0" errors="0">{_case(2)}</testsuite></testsuites>'
+).encode()
 
 
 def test_junit_totals() -> None:
     assert junit_totals(JUNIT_OK) == (5, 0, 0)
-    assert junit_totals(b'<testsuite tests="2" failures="1" errors="1"/>') == (2, 1, 1)
+    one_each = '<testcase name="a"><failure/></testcase><testcase name="b"><error/></testcase>'
+    assert junit_totals(
+        f'<testsuite tests="2" failures="1" errors="1">{one_each}</testsuite>'.encode()
+    ) == (2, 1, 1)
     assert junit_totals(b"<other/>") is None
     assert junit_totals(b"<testsuites/>") is None
     assert junit_totals(b'<testsuite tests="x"/>') is None
     assert junit_totals(b"not xml") is None
 
 
+def test_junit_cannot_contradict_itself() -> None:
+    # A <failure> with no summary attributes used to read as (1, 0, 0).
+    bare = b"<testsuite><testcase name='a'><failure/></testcase></testsuite>"
+    assert junit_totals(bare) == (1, 1, 0)
+    # Declared totals that disagree with the test cases are rejected, never trusted.
+    lying = b'<testsuite tests="1" failures="0" errors="0"><testcase name="a"><failure/></testcase></testsuite>'
+    assert junit_totals(lying) is None
+    assert junit_totals(b'<testsuite tests="5"><testcase name="a"/></testsuite>') is None
+    assert (
+        junit_totals(
+            b'<testsuites tests="9"><testsuite><testcase name="a"/></testsuite></testsuites>'
+        )
+        is None
+    )
+    two = b'<testsuites><testsuite tests="1"><testcase/></testsuite><testsuite tests="1"/></testsuites>'
+    assert junit_totals(two) is None
+
+
 def test_xml_with_doctype_or_entities_refused() -> None:
     bomb = b'<?xml version="1.0"?><!DOCTYPE x [<!ENTITY a "aaaa">]><testsuite tests="&a;"/>'
     assert junit_totals(bomb) is None
     assert coverage_percent("c.xml", bomb, "") is None
+
+
+@pytest.mark.parametrize("encoding", ["utf-16", "utf-16-le", "utf-16-be", "utf-32"])
+def test_encoded_entities_refused(encoding: str) -> None:
+    doc = '<?xml version="1.0"?><!DOCTYPE c [<!ENTITY r "1.0">]><coverage line-rate="&r;"/>'
+    data = doc.encode(encoding)
+    assert coverage_percent("c.xml", data, "") is None
+    entity_only = '<?xml version="1.0"?><!DOCTYPE c><coverage line-rate="1"/>'.encode(encoding)
+    assert coverage_percent("c.xml", entity_only, "") is None
+
+
+def test_utf16_without_entities_still_parses() -> None:
+    data = '<?xml version="1.0" encoding="utf-16"?><coverage line-rate="0.5"/>'.encode("utf-16")
+    assert coverage_percent("c.xml", data, "") == 50.0
 
 
 def test_coverage_sources() -> None:
@@ -145,6 +186,8 @@ def test_inspect_rules(tmp_path: Path) -> None:
     j = tmp_path / "j.xml"
     j.write_bytes(JUNIT_OK)
     assert inspect(j, Rule(junit_clean=True))[0].ok
+    j.write_bytes(b"<testsuite><testcase/></testsuite>")
+    assert inspect(j, Rule(junit_clean=True))[0].ok
     j.write_bytes(b'<testsuite tests="0"/>')
     assert not inspect(j, Rule(junit_clean=True))[0].ok
 
@@ -163,3 +206,29 @@ def test_long_rule_text_is_shortened(tmp_path: Path) -> None:
     f.write_text("a", encoding="utf-8")
     detail = inspect(f, Rule(contains=("a" * 200,)))[0].detail
     assert len(detail) < 100 and "…" in detail
+
+
+def test_path_below_a_file_reads_the_same_on_every_os(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """POSIX raises NotADirectoryError, Windows FileNotFoundError; both must say "cannot read"."""
+    from proofboard import ledger
+
+    (tmp_path / "f").write_text("x", encoding="utf-8")
+    below = tmp_path / "f" / "x"
+    real_stat = Path.stat
+
+    def windows_stat(self: Path, **kwargs: object) -> object:
+        if self == below:
+            raise FileNotFoundError(2, "The system cannot find the path specified")
+        return real_stat(self, **kwargs)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(Path, "stat", windows_stat)
+    with pytest.raises(ProofBoardError, match="cannot read"):
+        load_board(below)
+    with pytest.raises(ProofBoardError, match="cannot read"):
+        ledger.load_lock(below)
+    # A genuinely absent path is still "not found" / no lock.
+    assert ledger.load_lock(tmp_path / "absent.json") is None
+    with pytest.raises(ProofBoardError, match="not found"):
+        load_board(tmp_path / "absent.toml")

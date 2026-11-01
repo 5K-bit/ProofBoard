@@ -4,7 +4,7 @@ Thanks for your interest in PacketStory.
 
 ## Ways to help
 
-- Report a status that was wrong (a claim shown as proven when it should not be, or the reverse) with a minimal claims file and made-up evidence.
+- Report a status that was wrong (a claim shown as passed when it should not be, or the reverse) with a minimal claims file and made-up evidence.
 - Add a content rule (see [docs/architecture.md](docs/architecture.md#adding-a-rule)) or improve the report wording and docs.
 
 ## Development

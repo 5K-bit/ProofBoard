@@ -171,7 +171,7 @@ def test_markdown_shows_every_sentence_with_its_status(
     assert "all 6 statements are backed by sealed, unchanged evidence" in out
     for title in casestudy.TITLES.values():
         assert f"## {title}" in out
-    assert "1. Restores were never tried. **[PROVEN]**" in out
+    assert "1. Restores were never tried. **[CHECKS PASSED]**" in out
     assert "![A screenshot](ev/shot.png)" in out
     assert "AI tools assist with implementation, debugging, tests, and documentation." in out
     assert "Pat Example owns project direction and acceptance decisions" in out

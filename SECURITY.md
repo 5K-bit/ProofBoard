@@ -6,7 +6,7 @@ ProofBoard checks files in a project folder you control against a claims file yo
 
 ## What ProofBoard protects, and what it does not
 
-- **It detects change, not dishonesty.** A seal proves a file is byte-for-byte what it was when sealed. It cannot prove the file was true then. A person (or a script) who writes a false test log and seals it gets a PROVEN board. Treat the board as a way to notice silent change and missing proof, not as an audit.
+- **It detects change, not dishonesty.** A seal shows a file is byte-for-byte what it was when sealed. It cannot show the file was true then. A person (or a script) who writes a false test log and seals it gets a board that reads CHECKS PASSED. Treat the board as a way to notice silent change and missing proof, not as an audit.
 - **The lock is tamper-evident, not tamper-proof.** The lock carries a digest of its own contents, so a hand edit or damage is caught. Anyone who can write both the lock and the evidence can regenerate both consistently. Commit the lock to version control and review changes to it like code; ProofBoard does no signing.
 - **Sealing never changes a recorded hash silently.** `seal` refuses to overwrite a hash that changed unless you pass `--accept-changes`.
 - **Paths stay inside the project.** Absolute paths, `..`, backslashes and drive letters are rejected when the claims file is read, and a symlink that leads outside the folder makes that evidence fail rather than being followed.

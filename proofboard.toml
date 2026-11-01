@@ -31,7 +31,7 @@ statement = "The recorded demo shows a drifted claim and a refused re-seal."
   [[claim.evidence]]
   path = "docs/evidence/acceptance-transcript.txt"
   contains = [
-    "1 drifted, 3 proven",
+    "1 drifted, 3 passed",
     "These sealed files have changed. Nothing was written.",
     "4 claims: 4 stale",
   ]
@@ -47,7 +47,7 @@ statement = "Unsafe paths, XML entities (including re-encoded documents), markup
 
   [[claim.evidence]]
   path = "tests/unit/test_model_checks.py"
-  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused"]
+  contains = ["test_unsafe_paths_rejected", "test_xml_with_doctype_or_entities_refused", "test_encoded_entities_refused", "test_junit_cannot_contradict_itself"]
 
   [[claim.evidence]]
   path = "tests/unit/test_xml_encodings.py"
@@ -55,7 +55,7 @@ statement = "Unsafe paths, XML entities (including re-encoded documents), markup
 
 [[claim]]
 id = "threat-model"
-title = "The limits of what a seal proves are written down"
+title = "The limits of what a seal shows are written down"
 statement = "The threat model and security policy state that ProofBoard detects change, not dishonesty."
 
   [[claim.evidence]]
@@ -90,12 +90,12 @@ text = "The evidence behind a claim can be edited, deleted or left to age while 
 
 [[story]]
 section = "evidence"
-text = "In that recording all four claims read proven after sealing; after the restore drill is edited one reads drifted and a repeat seal is refused; after enough time all four read stale."
+text = "In that recording all four claims read passed after sealing; after the restore drill is edited one reads drifted and a repeat seal is refused; after enough time all four read stale."
   [[story.evidence]]
   path = "docs/evidence/acceptance-transcript.txt"
   contains = [
-    "4 claims: 4 proven",
-    "1 drifted, 3 proven",
+    "4 claims: 4 passed",
+    "1 drifted, 3 passed",
     "These sealed files have changed. Nothing was written.",
     "4 claims: 4 stale",
   ]
@@ -151,7 +151,7 @@ text = "Hostile claims files and evidence are covered by tests: unsafe paths, XM
 
 [[story]]
 section = "limits"
-text = "A seal proves a file is what it was when sealed, not that it was honest; a sealed false log reads as proven."
+text = "A seal proves a file is what it was when sealed, not that it was honest; a sealed false log reads as passed."
   [[story.evidence]]
   path = "README.md"
   contains = "Unchanged is not true."

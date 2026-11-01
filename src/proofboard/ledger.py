@@ -11,7 +11,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from .errors import ProofBoardError
+from .errors import ProofBoardError, below_a_file
 
 LOCK_NAME = "proofboard.lock.json"
 MAX_LOCK_BYTES = 4 << 20
@@ -72,6 +72,8 @@ def load_lock(path: Path) -> dict[str, Entry] | None:
     try:
         size = path.stat().st_size
     except FileNotFoundError:
+        if below_a_file(path):
+            raise ProofBoardError(f"cannot read {path}: a parent is a file") from None
         return None
     except OSError as exc:
         raise ProofBoardError(f"cannot read {path}: {exc.strerror or exc}") from None

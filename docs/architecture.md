@@ -32,7 +32,7 @@ Each evidence file gets one status, and a claim takes the worst of its files.
 | `stale` | Sealed longer ago than the claim's `max_age_days` |
 | `ok` | Present, rules met, hash matches, fresh enough |
 
-A claim with no evidence is `unsupported` ("no evidence"); a board with no claims is never "all proven".
+A claim with no evidence is `unsupported` ("no evidence"); a board with no claims is never "all passed".
 
 ## Why a lock and not just rules
 

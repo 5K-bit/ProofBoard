@@ -1,5 +1,5 @@
 {
-  "all_proven": true,
+  "all_passed": true,
   "checked": "2026-10-29T17:00:00Z",
   "claims": [
     {
@@ -15,8 +15,8 @@
           "note": "matches the sealed record",
           "path": "evidence/junit.xml",
           "sealed_at": "2026-10-29T17:00:00Z",
-          "sealed_sha256": "a0b84dd100a4d516816c07dfc6a5646b7deaf071e6d60b0dab66c4fec8dde72b",
-          "sha256": "a0b84dd100a4d516816c07dfc6a5646b7deaf071e6d60b0dab66c4fec8dde72b",
+          "sealed_sha256": "06415b637fb1d7056898f11d9e99eaf546d2c5c5e21de88643c12c7340d5b1c6",
+          "sha256": "06415b637fb1d7056898f11d9e99eaf546d2c5c5e21de88643c12c7340d5b1c6",
           "status": "ok"
         },
         {
@@ -36,7 +36,7 @@
         }
       ],
       "id": "tests-pass",
-      "status": "proven",
+      "status": "passed",
       "title": "The test suite passes with strong coverage"
     },
     {
@@ -68,7 +68,7 @@
         }
       ],
       "id": "restore-drill",
-      "status": "proven",
+      "status": "passed",
       "title": "A backup can be restored"
     },
     {
@@ -90,7 +90,7 @@
         }
       ],
       "id": "no-runtime-deps",
-      "status": "proven",
+      "status": "passed",
       "title": "No runtime dependencies"
     },
     {
@@ -112,12 +112,12 @@
         }
       ],
       "id": "threat-model-reviewed",
-      "status": "proven",
+      "status": "passed",
       "title": "The threat model was reviewed this quarter"
     }
   ],
   "counts": {
-    "proven": 4
+    "passed": 4
   },
   "proofboard": "0.1.0",
   "sealed": true,

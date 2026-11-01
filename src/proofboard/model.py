@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .errors import ProofBoardError
+from .errors import ProofBoardError, below_a_file
 
 MAX_CONFIG_BYTES = 1 << 20
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,63}$")
@@ -341,6 +341,8 @@ def load_board(path: Path) -> Board:
     try:
         size = path.stat().st_size
     except FileNotFoundError:
+        if below_a_file(path):
+            raise ProofBoardError(f"cannot read {path}: a parent is a file") from None
         raise ProofBoardError(
             f"claims file not found: {path} (create one with 'proofboard init')"
         ) from None

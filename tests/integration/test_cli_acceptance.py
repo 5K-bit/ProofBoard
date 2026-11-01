@@ -32,7 +32,7 @@ def test_init_check_seal_flow(tmp_path: Path, capsys: pytest.CaptureFixture[str]
     assert run("check", "-C", str(tmp_path), "--now", NOW) == 0
     capsys.readouterr()
     assert run("check", "-C", str(tmp_path), "--now", NOW, "--format", "json") == 0
-    assert json.loads(capsys.readouterr().out)["all_proven"] is True
+    assert json.loads(capsys.readouterr().out)["all_passed"] is True
 
 
 def test_seal_refuses_changes_until_accepted(

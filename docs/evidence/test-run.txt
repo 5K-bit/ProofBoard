@@ -1,21 +1,20 @@
-........................................................................ [ 61%]
-..............................................                           [100%]
+........................................................................ [ 58%]
+....................................................                     [100%]
 ================================ tests coverage ================================
 _______________ coverage: platform linux, python 3.13.18-final-0 _______________
-
 Name                          Stmts   Miss Branch BrPart  Cover   Missing
 -------------------------------------------------------------------------
 src/proofboard/__init__.py        1      0      0      0   100%
 src/proofboard/__main__.py        2      2      0      0     0%   1-3
 src/proofboard/casestudy.py     189      7     66      7    95%   106->108, 109, 111->113, 180-181, 210, 245-246, 333, 336->338
-src/proofboard/checks.py         92      0     34      0   100%
-src/proofboard/cli.py           132      3     22      1    97%   52->exit, 209-211
-src/proofboard/errors.py          2      0      0      0   100%
+src/proofboard/checks.py        101      0     34      0   100%
+src/proofboard/cli.py           132      3     22      1    97%   52->exit, 207-209
+src/proofboard/errors.py          5      0      0      0   100%
 src/proofboard/evaluate.py       82      0     18      0   100%
-src/proofboard/ledger.py         78      0     14      0   100%
-src/proofboard/model.py         233      3     80      3    98%   226, 241, 246
+src/proofboard/ledger.py         80      0     16      0   100%
+src/proofboard/model.py         235      3     82      3    98%   226, 241, 246
 src/proofboard/render.py         88      1     28      1    98%   88
 src/proofboard/seal.py           46      0     14      0   100%
 -------------------------------------------------------------------------
-TOTAL                           945     16    276     12    98%
-118 passed in 3.37s
+TOTAL                           961     16    280     12    98%
+124 passed in 6.46s

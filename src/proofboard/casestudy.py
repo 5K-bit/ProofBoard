@@ -71,7 +71,7 @@ def story_counts(report: Report) -> tuple[int, int]:
     """(proven, total) over the case study's own statements."""
     story = _story(report)
     index = results_by_id(report)
-    proven = sum(1 for i in story.items if index[i.claim_id].status == "proven")
+    proven = sum(1 for i in story.items if index[i.claim_id].status == "passed")
     return proven, len(story.items)
 
 

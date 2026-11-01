@@ -1,50 +1,50 @@
 {
-  "digest": "80c122cc169f6c20f9dc3c073d49f44c9e9a33fa56c0d9521c936d6e3bc397e9",
+  "digest": "38d140d0f242dbb309060a1006af1c2989ebf818d336e8663231c90017d338de",
   "entries": {
     "README.md": {
-      "sealed_at": "2026-10-31T21:00:00Z",
-      "sha256": "7196aa679a168cc1a7b2827f3f5f9e4dea76cbf7e10e6fe21057362bd00e192f",
-      "size": 12669
+      "sealed_at": "2026-11-01T19:21:25Z",
+      "sha256": "d12cd7844c8601dd5f56f8fbdc9f334d88fefadcd5aad843a945575b819f52b3",
+      "size": 12897
     },
     "SECURITY.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "29d9148e7d5e482b76739a1250538b1e24180ced96cd165fabf37ced52c986b1",
-      "size": 2589
+      "sealed_at": "2026-11-01T19:21:25Z",
+      "sha256": "33c2951e27950022c551474079ba4505adaf4cf64b6ae79a8d3fe4f37825aa9e",
+      "size": 2605
     },
     "docs/adr/0001-seal-by-hash-not-by-timestamp.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
+      "sealed_at": "2026-11-01T19:21:25Z",
       "sha256": "b904e054f54b7962467f3a78a5960bd36b1df55a64da6949ce65d6ee0e62422e",
       "size": 471
     },
     "docs/adr/0002-seal-refuses-silent-changes.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
+      "sealed_at": "2026-11-01T19:21:25Z",
       "sha256": "65f3f2239da21e8087eb30b90f30a89b61ae716115015225ab24e839ee4c15f0",
       "size": 541
     },
     "docs/adr/0003-rules-are-data-not-code.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
+      "sealed_at": "2026-11-01T19:21:25Z",
       "sha256": "5264b129bc4721c8d00794e19ebb9a0e6a5ab2519436d49a504e1b79f0ec8888",
       "size": 584
     },
     "docs/architecture.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "85a520dbefcc85276817bfb23e34030a73ec8dd1efa5577dd33ab25a9fd6c8a8",
+      "sealed_at": "2026-11-01T19:21:25Z",
+      "sha256": "384dc50499cfc12babd0fcd625359457576e2c03b1f4ff0d8be868cea7b0642d",
       "size": 2623
     },
     "docs/evidence/acceptance-transcript.txt": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "07ae788e57aea80ac6036eba7cf8cf57f83ba96a9e81793727743a9101eba7d2",
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "5bd675e35f3a86c22024b88d2d682d8811187e08c2e049295120fa30936f4d2a",
       "size": 6346
     },
     "docs/evidence/test-run.txt": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "1d14181f307fd4aa3e95995b5e3da0fa6f576fb808b30c00090f2f6fad67ac33",
-      "size": 1444
+      "sealed_at": "2026-11-01T19:21:47Z",
+      "sha256": "c2c38bca2ceb0e9e85142e16240e31b4d907a41a2bed3e02de01511f6b2c14a3",
+      "size": 1443
     },
     "docs/threat-model.md": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "614d40467abc2993345b3fa6674c66aae8d355617e2dc07561e08c1e7ee8fc73",
-      "size": 4175
+      "sealed_at": "2026-11-01T19:21:25Z",
+      "sha256": "2cc32f98b9231912a0da29fedd59b146e6685fca6c2fd5253ade2a461ab78e0d",
+      "size": 4186
     },
     "pyproject.toml": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -52,9 +52,9 @@
       "size": 1684
     },
     "tests/unit/test_model_checks.py": {
-      "sealed_at": "2026-10-30T04:23:29Z",
-      "sha256": "e69a0e53e1e8218ee957684052d680afb50d36ee832cf920816c14c774ac6724",
-      "size": 6809
+      "sealed_at": "2026-10-30T04:17:49Z",
+      "sha256": "996e4a55dd1cccb895af6635ec24d3fad371b319cd72e8c2665791c0b6e61280",
+      "size": 9857
     },
     "tests/unit/test_render_fuzz.py": {
       "sealed_at": "2026-10-30T03:44:53Z",
@@ -62,9 +62,9 @@
       "size": 3180
     },
     "tests/unit/test_xml_encodings.py": {
-      "sealed_at": "2026-10-30T12:00:00Z",
-      "sha256": "d57e689fe83e9904b9b03cd45874a19cc3bd9c7e54e2d2145fc7958400ce6249",
-      "size": 1832
+      "sealed_at": "2026-11-01T19:21:25Z",
+      "sha256": "610d0c1cf6e5becf4f845ad30ab5012e47fcfb7ec8815bf2c6c138e06e63d1f7",
+      "size": 1816
     }
   },
   "format": 1

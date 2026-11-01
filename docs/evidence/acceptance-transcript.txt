@@ -24,23 +24,23 @@ sealed 5 files: 5 new, 0 changed, 0 refreshed, 0 unchanged
 $ proofboard check --now 2026-10-29T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2026-10-29T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
-  proven      restore-drill          A backup can be restored
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 4 proven
+  passed      tests-pass             The test suite passes with strong coverage
+  passed      restore-drill          A backup can be restored
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 4 passed
 [exit 0]
 
 == 4. Someone edits the restore drill after the fact ==
 $ proofboard check --now 2026-10-29T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2026-10-29T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
+  passed      tests-pass             The test suite passes with strong coverage
   drifted     restore-drill          A backup can be restored
       ! evidence/restore-drill.txt: changed since it was sealed (sealed dc0beaca0e6d, now 457c92752cca)
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 1 drifted, 3 proven
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 1 drifted, 3 passed
 [exit 2]
 
 $ proofboard seal --now 2026-10-29T17:00:00Z
@@ -53,12 +53,12 @@ If the change is expected, run again with --accept-changes.
 $ proofboard check --now 2026-10-29T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2026-10-29T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
+  passed      tests-pass             The test suite passes with strong coverage
   failed      restore-drill          A backup can be restored
       ! evidence/restore-drill.txt: not met: does not contain "mismatch"
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 1 failed, 3 proven
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 1 failed, 3 passed
 [exit 2]
 
 == 6. Coverage falls below the claim ==
@@ -67,22 +67,22 @@ ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstr
 checked 2026-10-29T17:00:00Z
   failed      tests-pass             The test suite passes with strong coverage
       ! evidence/coverage.xml: not met: coverage 87.1% (needs at least 90%)
-  proven      restore-drill          A backup can be restored
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 1 failed, 3 proven
+  passed      restore-drill          A backup can be restored
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 1 failed, 3 passed
 [exit 2]
 
 == 7. The review note is deleted ==
 $ proofboard check --now 2026-10-29T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2026-10-29T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
-  proven      restore-drill          A backup can be restored
-  proven      no-runtime-deps        No runtime dependencies
+  passed      tests-pass             The test suite passes with strong coverage
+  passed      restore-drill          A backup can be restored
+  passed      no-runtime-deps        No runtime dependencies
   missing     threat-model-reviewed  The threat model was reviewed this quarter
       ! docs/threat-model-review.md: file not found
-4 claims: 1 missing, 3 proven
+4 claims: 1 missing, 3 passed
 [exit 2]
 
 == 8. Evidence goes stale ==
@@ -105,11 +105,11 @@ checked 2027-02-10T17:00:00Z
 $ proofboard check --now 2026-10-29T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2026-10-29T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
-  proven      restore-drill          A backup can be restored
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 4 proven
+  passed      tests-pass             The test suite passes with strong coverage
+  passed      restore-drill          A backup can be restored
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 4 passed
 [exit 0]
 
 $ proofboard seal --refresh --now 2027-02-10T17:00:00Z
@@ -119,9 +119,9 @@ sealed 5 files: 0 new, 0 changed, 5 refreshed, 0 unchanged
 $ proofboard check --now 2027-02-10T17:00:00Z
 ProofBoard: Orchard Sync (orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard))
 checked 2027-02-10T17:00:00Z
-  proven      tests-pass             The test suite passes with strong coverage
-  proven      restore-drill          A backup can be restored
-  proven      no-runtime-deps        No runtime dependencies
-  proven      threat-model-reviewed  The threat model was reviewed this quarter
-4 claims: 4 proven
+  passed      tests-pass             The test suite passes with strong coverage
+  passed      restore-drill          A backup can be restored
+  passed      no-runtime-deps        No runtime dependencies
+  passed      threat-model-reviewed  The threat model was reviewed this quarter
+4 claims: 4 passed
 [exit 0]
