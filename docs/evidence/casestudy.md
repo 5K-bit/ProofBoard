@@ -1,10 +1,10 @@
 # ProofBoard: claims tied to evidence you can re-check
 
-proofboard 0.1.0 · By Louis Boddie · [repository](https://github.com/5K-bit/ProofBoard)
+proofboard 0.1.1 · By Louis Boddie · [repository](https://github.com/5K-bit/ProofBoard)
 
 A small command-line tool that links each claim about a project to the evidence files behind it, seals their SHA-256, and reports when that evidence changes, goes missing, fails a rule or goes stale.
 
-> As of 2026-11-01T19:21:47Z, all 11 statements are backed by sealed, unchanged evidence.
+> As of 2026-11-01T19:25:15Z, all 11 statements are backed by sealed, unchanged evidence.
 
 ## The problem
 
@@ -33,7 +33,7 @@ A small command-line tool that links each claim about a project to the evidence 
 ## Verification
 
 7. The recorded run of the test suite passed with coverage above 90%. **[CHECKS PASSED]**
-   - evidence: [`docs/evidence/test-run.txt`](docs/evidence/test-run.txt), sha256 c2c38bca2ceb
+   - evidence: [`docs/evidence/test-run.txt`](docs/evidence/test-run.txt), sha256 56c4f450cc4b
 8. Hostile claims files and evidence are covered by tests: unsafe paths, XML with entities \(also when re-encoded as UTF-16\), markup in text, and mutated claims files. **[CHECKS PASSED]**
    - evidence: [`tests/unit/test_render_fuzz.py`](tests/unit/test_render_fuzz.py), sha256 cf1401d414b4
    - evidence: [`tests/unit/test_model_checks.py`](tests/unit/test_model_checks.py), sha256 996e4a55dd1c
@@ -54,4 +54,4 @@ AI tools assist with implementation, debugging, tests, and documentation.
 
 Louis Boddie owns project direction and acceptance decisions; linked tests and release evidence document what has been verified.
 
-_Built with ProofBoard 0.1.0. Each statement is checked against evidence files recorded in a lock; that shows the evidence is unchanged, not that it is true._
+_Built with ProofBoard 0.1.1. Each statement is checked against evidence files recorded in a lock; that shows the evidence is unchanged, not that it is true._

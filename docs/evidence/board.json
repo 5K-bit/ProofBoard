@@ -119,7 +119,7 @@
   "counts": {
     "passed": 4
   },
-  "proofboard": "0.1.0",
+  "proofboard": "0.1.1",
   "sealed": true,
   "subject": "orchard-sync 2.4.0 (a made-up project used to demonstrate ProofBoard)",
   "title": "Orchard Sync"

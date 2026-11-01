@@ -49,4 +49,4 @@ The package installs nothing besides itself.
 - **ok** `docs/threat-model-review.md` · sha256 00400a3209a5 · sealed 2026-10-29T17:00:00Z: matches the sealed record
   - met: contains "Reviewed by"
 
-_ProofBoard 0.1.0. Checks what is recorded; it cannot tell whether the evidence itself was honest._
+_ProofBoard 0.1.1. Checks what is recorded; it cannot tell whether the evidence itself was honest._

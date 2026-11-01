@@ -99,7 +99,7 @@ def test_python_dash_m_and_version() -> None:
         text=True,
         check=False,
     )
-    assert proc.returncode == 0 and proc.stdout.startswith("proofboard 0.1.0")
+    assert proc.returncode == 0 and proc.stdout.startswith("proofboard 0.1.1")
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="transcript records POSIX line endings only")

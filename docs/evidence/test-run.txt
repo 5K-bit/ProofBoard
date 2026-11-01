@@ -17,4 +17,4 @@ src/proofboard/render.py         88      1     28      1    98%   88
 src/proofboard/seal.py           46      0     14      0   100%
 -------------------------------------------------------------------------
 TOTAL                           961     16    280     12    98%
-124 passed in 6.46s
+124 passed in 5.57s

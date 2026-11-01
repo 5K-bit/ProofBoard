@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-01
+
 ### Changed
 
 - A claim whose checks all pass is now reported as `passed` / **CHECKS PASSED** (was `proven`), and `all_proven` in the JSON report is now `all_passed`. Matching a sealed file and the configured rules does not establish that a claim is true.

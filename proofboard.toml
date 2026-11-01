@@ -1,6 +1,6 @@
 [board]
 title = "ProofBoard"
-subject = "proofboard 0.1.0"
+subject = "proofboard 0.1.1"
 default_max_age_days = 180
 
 [[claim]]
@@ -72,7 +72,7 @@ statement = "The threat model and security policy state that ProofBoard detects 
 
 [casestudy]
 title = "ProofBoard: claims tied to evidence you can re-check"
-subject = "proofboard 0.1.0"
+subject = "proofboard 0.1.1"
 author = "Louis Boddie"
 summary = "A small command-line tool that links each claim about a project to the evidence files behind it, seals their SHA-256, and reports when that evidence changes, goes missing, fails a rule or goes stale."
 repo = "https://github.com/5K-bit/ProofBoard"

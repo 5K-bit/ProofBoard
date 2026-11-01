@@ -1,5 +1,5 @@
 {
-  "digest": "38d140d0f242dbb309060a1006af1c2989ebf818d336e8663231c90017d338de",
+  "digest": "7ac50587049ee3f62e2773fa6b9bef543b02275c753f399a30ae26be3b77cc59",
   "entries": {
     "README.md": {
       "sealed_at": "2026-11-01T19:21:25Z",
@@ -37,8 +37,8 @@
       "size": 6346
     },
     "docs/evidence/test-run.txt": {
-      "sealed_at": "2026-11-01T19:21:47Z",
-      "sha256": "c2c38bca2ceb0e9e85142e16240e31b4d907a41a2bed3e02de01511f6b2c14a3",
+      "sealed_at": "2026-11-01T19:25:15Z",
+      "sha256": "56c4f450cc4b0bca188dcc9901f2841d6d13b89b2602fbdb7b289c78f46d0e68",
       "size": 1443
     },
     "docs/threat-model.md": {
@@ -47,8 +47,8 @@
       "size": 4186
     },
     "pyproject.toml": {
-      "sealed_at": "2026-10-30T03:44:53Z",
-      "sha256": "d57cb5008af7836689e2334aafff5152f78b6c44f2a406870e546737aca75bc3",
+      "sealed_at": "2026-11-01T19:25:15Z",
+      "sha256": "51fc1bb7c7056fdf8c53f952be65a6c6f014a6a5fd8f6d7c8452fc7c04484c0b",
       "size": 1684
     },
     "tests/unit/test_model_checks.py": {
