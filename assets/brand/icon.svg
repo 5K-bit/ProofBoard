@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="t">
+  <title id="t">ProofBoard icon</title>
+  <rect width="256" height="256" rx="56" fill="#0c1220"/>
+  <rect x="6" y="6" width="244" height="244" rx="50" fill="none" stroke="#60a5fa" stroke-opacity=".35" stroke-width="4"/>
+  <g transform="translate(54.00 47.57) scale(0.6435)" fill="none" stroke="#60a5fa" stroke-width="15.54" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="10" width="190" height="230" rx="14"/><path d="M48 66l14 14 26-30M108 66h72"/><path d="M48 124l14 14 26-30M108 124h56"/><path d="M52 184l30 30M82 184l-30 30M108 198h72"/></g>
+</svg>
